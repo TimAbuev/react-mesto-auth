@@ -1,7 +1,11 @@
 import React from 'react';
 import '../index.css';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import { Route, Routes } from 'react-router-dom';
+import Register from './Register';
+import Login from './Login';
 import api from '../utils/Api'
+import ProtectedRoute from './ProtectedRoute';
 import Footer from './Footer';
 import Header from './Header.js';
 import Main from './Main.js';
@@ -11,6 +15,7 @@ import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
 
+
 function App() {
   const [isEditProfilePopupOpen, setEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setPlacePopupOpen] = React.useState(false);
@@ -19,6 +24,8 @@ function App() {
   const [selectedCard, setSelectedCard] = React.useState({});
   const [currentUser, setCurrentUser] = React.useState({});
   const [cards, setCards] = React.useState([]);
+
+  const loggedIn = true;
 
   React.useEffect(() => {
     api.getCards()
@@ -126,8 +133,29 @@ function App() {
         <div className="root">
           <Header />
           <div className="page">
-            <Main onEditAvatar={handleEditAvatarClick} onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onCardClick={handlePopupImgClick}
-              setSelectedCard={setSelectedCard} onCardLike={handleCardLike} onCardDelete={handleCardDelete} cards={cards} />
+
+            <Routes>
+              <Route
+                path='/'
+                element={
+                  <ProtectedRoute 
+                  loggedIn={loggedIn} 
+                  onEditAvatar={handleEditAvatarClick}
+                  onEditProfile={handleEditProfileClick}
+                  onAddPlace={handleAddPlaceClick}
+                  onCardClick={handlePopupImgClick}
+                  setSelectedCard={setSelectedCard}
+                  onCardLike={handleCardLike}
+                  onCardDelete={handleCardDelete}
+                  cards={cards}
+                  component={Main} />
+                } />
+                <Route path='/sign-up'
+                  element={<Register/>}/>
+                <Route path='/sign-in'
+                  element={<Login/>}/>
+            </Routes>
+
             <Footer />
             <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
             <AddPlacePopup onAddPlace={handleAddPlaceSubmit} isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} />
