@@ -138,22 +138,29 @@ function App() {
               <Route
                 path='/'
                 element={
-                  <ProtectedRoute 
-                  loggedIn={loggedIn} 
-                  onEditAvatar={handleEditAvatarClick}
-                  onEditProfile={handleEditProfileClick}
-                  onAddPlace={handleAddPlaceClick}
-                  onCardClick={handlePopupImgClick}
-                  setSelectedCard={setSelectedCard}
-                  onCardLike={handleCardLike}
-                  onCardDelete={handleCardDelete}
-                  cards={cards}
-                  component={Main} />
+                  <ProtectedRoute
+                    loggedIn={loggedIn}
+                    onEditAvatar={handleEditAvatarClick}
+                    onEditProfile={handleEditProfileClick}
+                    onAddPlace={handleAddPlaceClick}
+                    onCardClick={handlePopupImgClick}
+                    setSelectedCard={setSelectedCard}
+                    onCardLike={handleCardLike}
+                    onCardDelete={handleCardDelete}
+                    cards={cards}
+                    component={Main} />
                 } />
-                <Route path='/sign-up'
-                  element={<Register/>}/>
-                <Route path='/sign-in'
-                  element={<Login/>}/>
+              <Route path='/sign-up'
+                element={
+                  <Register
+                    isOpen={isAddPlacePopupOpen}
+                    onClose={closeAllPopups} />
+                } />
+              <Route path='/sign-in'
+                element={
+                <Login 
+                 />
+                } />
             </Routes>
 
             <Footer />
@@ -161,7 +168,7 @@ function App() {
             <AddPlacePopup onAddPlace={handleAddPlaceSubmit} isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} />
             <ImagePopup close={closeAllPopups} isOpen={isPopupImageOpen}
               selectedCard={selectedCard} />
-            <PopupWithForm name="are-you-sure" headerName="Вы уверены?" btnName="Да" />
+            {/* <PopupWithForm name="are-you-sure" headerName="Вы уверены?" btnName="Да" /> */}
             <EditAvatarPopup onUpdateAvatar={handleUpdateAvatar} isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} />
           </div>
         </div>
