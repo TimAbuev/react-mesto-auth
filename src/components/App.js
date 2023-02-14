@@ -14,6 +14,7 @@ import ImagePopup from './ImagePopup.js';
 import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
+import InfoTooltip from './InfoTooltip';
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
   const [isAddPlacePopupOpen, setPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setAvatarPopupOpen] = React.useState(false);
   const [isPopupImageOpen, setPopupImageOpen] = React.useState(false);
+  const [isInfoTooltipOpen, setInfoTooltipOpen] = React.useState(true);
   const [selectedCard, setSelectedCard] = React.useState({});
   const [currentUser, setCurrentUser] = React.useState({});
   const [cards, setCards] = React.useState([]);
@@ -62,11 +64,16 @@ function App() {
     setPopupImageOpen(!isPopupImageOpen);
   }
 
+  function handleInfoTooltipClick() {
+    setInfoTooltipOpen(!isInfoTooltipOpen);
+  }
+
   function closeAllPopups() {
     isEditProfilePopupOpen && handleEditProfileClick();
     isAddPlacePopupOpen && handleAddPlaceClick();
     isEditAvatarPopupOpen && handleEditAvatarClick();
     isPopupImageOpen && handlePopupImgClick();
+    isInfoTooltipOpen && handleInfoTooltipClick();
   }
 
   function handleUpdateUser(data) {
@@ -152,11 +159,11 @@ function App() {
                 } />
               <Route path='/sign-up'
                 element={
-                  <Register/>
+                  <Register />
                 } />
               <Route path='/sign-in'
                 element={
-                  <Login/>
+                  <Login />
                 } />
             </Routes>
 
@@ -167,6 +174,10 @@ function App() {
               selectedCard={selectedCard} />
             {/* <PopupWithForm name="are-you-sure" headerName="Вы уверены?" btnName="Да" /> */}
             <EditAvatarPopup onUpdateAvatar={handleUpdateAvatar} isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} />
+            <InfoTooltip text="Вы успешно зарегистрировались!" isOpen={true} onClose={closeAllPopups}
+              success="_lucky" />
+            <InfoTooltip text="Что-то пошло не так! Попробуйте ещё раз." isOpen={false} onClose={closeAllPopups}
+              success="_unlucky" />
           </div>
         </div>
       </div>
