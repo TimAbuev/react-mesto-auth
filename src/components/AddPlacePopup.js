@@ -25,8 +25,8 @@ function AddPlacePopup(props) {
   return (
     <PopupWithForm name="mesto" headerName="Новое место" btnName="Создать" isOpen={props.isOpen} onClose={props.onClose} onSubmit={handleSubmit} children>
       <input value={name} onChange={handleChangeName} type="text" className="popup__input popup__input_type_name" name="name" minLength="2" maxLength="40" placeholder="Название"
-        required id="input-name" />
-      <span className="error input-name-error"></span>
+        required id="inputPlace-name" />
+      <span className="error inputPlace-name-error"></span>
 
       <input value={image} onChange={handleChangeImage} type="url" class="popup__input popup__input_type_card-src" name="link" placeholder="Ссылка на картинку"
         required id="input-link" />

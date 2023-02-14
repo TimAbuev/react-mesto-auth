@@ -152,14 +152,11 @@ function App() {
                 } />
               <Route path='/sign-up'
                 element={
-                  <Register
-                    isOpen={isAddPlacePopupOpen}
-                    onClose={closeAllPopups} />
+                  <Register/>
                 } />
               <Route path='/sign-in'
                 element={
-                <Login 
-                 />
+                  <Login/>
                 } />
             </Routes>
 
