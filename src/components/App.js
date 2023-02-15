@@ -27,7 +27,7 @@ function App() {
   const [currentUser, setCurrentUser] = React.useState({});
   const [cards, setCards] = React.useState([]);
 
-  const loggedIn = true;
+  const loggedIn = false;
 
   React.useEffect(() => {
     api.getCards()
@@ -59,11 +59,9 @@ function App() {
   function handleAddPlaceClick() {
     setPlacePopupOpen(!isAddPlacePopupOpen);
   }
-
   function handlePopupImgClick() {
     setPopupImageOpen(!isPopupImageOpen);
   }
-
   function handleInfoTooltipClick() {
     setInfoTooltipOpen(!isInfoTooltipOpen);
   }
@@ -174,7 +172,7 @@ function App() {
               selectedCard={selectedCard} />
             {/* <PopupWithForm name="are-you-sure" headerName="Вы уверены?" btnName="Да" /> */}
             <EditAvatarPopup onUpdateAvatar={handleUpdateAvatar} isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} />
-            <InfoTooltip text="Вы успешно зарегистрировались!" isOpen={true} onClose={closeAllPopups}
+            <InfoTooltip text="Вы успешно зарегистрировались!" isOpen={isInfoTooltipOpen} onClose={closeAllPopups}
               success="_lucky" />
             <InfoTooltip text="Что-то пошло не так! Попробуйте ещё раз." isOpen={false} onClose={closeAllPopups}
               success="_unlucky" />
