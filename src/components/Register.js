@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import '../components/styles/Register.css';
 
 function Register() {
@@ -16,7 +17,7 @@ function Register() {
 
       <button className="register__button" type="submit">Зарегистрироваться</button>
       <p className="register__capture">Уже зарегистрированы? 
-        <button className="register__btn-enter"><a>Войти</a></button>
+        <Link to="/sign-in" className="register__btn-enter"> Войти</Link>
       </p>
       
     </div>

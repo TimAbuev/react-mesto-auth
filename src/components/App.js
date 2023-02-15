@@ -27,7 +27,7 @@ function App() {
   const [currentUser, setCurrentUser] = React.useState({});
   const [cards, setCards] = React.useState([]);
 
-  const loggedIn = false;
+  const loggedIn = true;
 
   React.useEffect(() => {
     api.getCards()
@@ -136,7 +136,31 @@ function App() {
     <CurrentUserContext.Provider value={currentUser}>
       <div className="App">
         <div className="root">
-          <Header />
+          <Routes>
+            <Route path="/sign-in"
+              element={
+                <Header
+                  linkName="Регистрация"
+                  linkTo="/sign-up"
+                />
+              } />
+            <Route path="/sign-up"
+              element={
+                <Header
+                  linkName="Войти"
+                  linkTo="/sign-in"
+                />
+              } />
+            <Route path="/"
+              element={
+                <Header
+                  linkName="Выйти"
+                  linkTo="/sign-in"
+                />
+              } />
+
+          </Routes>
+
           <div className="page">
 
             <Routes>

@@ -46,4 +46,9 @@
   background-color: transparent;
   color: white;
   cursor: pointer;
+  text-decoration: none;
+}
+.register__btn-enter:hover {
+  opacity: 85%;
+  transition: .3s;
 }
