@@ -43,14 +43,14 @@ function Register() {
   function handleSubmit(e) {
     e.preventDefault();
 
-    mestoAuth.register(password, email).then((res) => {
-      if (res.statusCode !== 400) {
-        navigate('/sign-in', { replace: true });
-      } else {
-        console.log("400 - некорректно заполнено одно из полей");
-      }
-    })
-
+    mestoAuth.register(password, email)
+      .then((res) => {
+        if (res.statusCode !== 400) {
+          navigate('/sign-in', { replace: true });
+        } else {
+          console.log("400 - некорректно заполнено одно из полей");
+        }
+      })
   }
 
   return (

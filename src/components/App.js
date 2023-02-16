@@ -27,7 +27,7 @@ function App() {
   const [currentUser, setCurrentUser] = React.useState({});
   const [cards, setCards] = React.useState([]);
 
-  const loggedIn = true;
+  const loggedIn = false;
 
   React.useEffect(() => {
     api.getCards()
