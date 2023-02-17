@@ -1,7 +1,7 @@
 import React from 'react';
 import '../index.css';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import Register from './Register';
 import Login from './Login';
 import api from '../utils/Api'
@@ -15,6 +15,7 @@ import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
 import InfoTooltip from './InfoTooltip';
+import * as mestoAuth from '../utils/mestoAuth';
 
 
 function App() {
@@ -22,12 +23,12 @@ function App() {
   const [isAddPlacePopupOpen, setPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setAvatarPopupOpen] = React.useState(false);
   const [isPopupImageOpen, setPopupImageOpen] = React.useState(false);
-  const [isInfoTooltipOpen, setInfoTooltipOpen] = React.useState(true);
+  const [isInfoTooltipOpen, setInfoTooltipOpen] = React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState({});
   const [currentUser, setCurrentUser] = React.useState({});
   const [cards, setCards] = React.useState([]);
-
-  const loggedIn = false;
+  const [loggedIn, setLoggedIn] = React.useState(false);
+  const navigate = useNavigate();
 
   React.useEffect(() => {
     api.getCards()
@@ -50,6 +51,24 @@ function App() {
 
   }, []);
 
+  React.useEffect(() => {
+    checkToken();
+  }, []);
+
+  const checkToken = () => {
+    if (localStorage.getItem('jwt')) {
+      const jwt = localStorage.getItem('jwt');
+      if (jwt) {
+        mestoAuth.getContent(jwt).then((res) => {
+          if (res) { 
+            setLoggedIn(true);
+            navigate('/', {replace: true});
+          }
+        })
+      }
+    }
+  }
+
   function handleEditAvatarClick() {
     setAvatarPopupOpen(!isEditAvatarPopupOpen);
   }
@@ -64,6 +83,10 @@ function App() {
   }
   function handleInfoTooltipClick() {
     setInfoTooltipOpen(!isInfoTooltipOpen);
+  }
+
+  function handleLogin() {
+    setLoggedIn(!loggedIn);
   }
 
   function closeAllPopups() {
@@ -181,11 +204,15 @@ function App() {
                 } />
               <Route path='/sign-up'
                 element={
-                  <Register />
+                  <Register
+                    handleLucky={handleInfoTooltipClick}
+                  />
                 } />
               <Route path='/sign-in'
                 element={
-                  <Login />
+                  <Login
+                    handleLogin={handleLogin}
+                  />
                 } />
             </Routes>
 

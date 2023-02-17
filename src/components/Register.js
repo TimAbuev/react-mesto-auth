@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import '../components/styles/Register.css';
 import * as mestoAuth from '../utils/mestoAuth.js'
 
-function Register() {
+function Register(props) {
   // const [formValue, setFormValue] = React.useState({
   //   email: '',
   //   password: '',
@@ -44,12 +44,9 @@ function Register() {
     e.preventDefault();
 
     mestoAuth.register(password, email)
-      .then((res) => {
-        if (res.statusCode !== 400) {
-          navigate('/sign-in', { replace: true });
-        } else {
-          console.log("400 - некорректно заполнено одно из полей");
-        }
+      .then(() => {
+        props.handleLucky();
+        navigate('/sign-in', { replace: true });
       })
   }
 

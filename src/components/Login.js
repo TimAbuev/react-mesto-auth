@@ -3,15 +3,14 @@ import * as mestoAuth from '../utils/mestoAuth'
 import '../components/styles/Login.css'
 import { useNavigate } from "react-router-dom";
 
-function Login() {
+function Login(props) {
   const [formValue, setFormValue] = React.useState({
     email: '',
     password: ''
   })
 
   const handleChange = (e) => {
-    const {name, value} = e.target;
-
+    const { name, value } = e.target;
     setFormValue({
       ...formValue,
       [name]: value
@@ -23,19 +22,19 @@ function Login() {
   function handleSubmit(e) {
     e.preventDefault();
 
-    if (!formValue.email || !formValue.password){
+    if (!formValue.email || !formValue.password) {
       console.log('было нажатие на сабмит');
       return;
-
-    } else {
-
+    }
+    else {
       console.log('нажатие + else');
 
       mestoAuth.authorize(formValue.password, formValue.email)
         .then((data) => {
           if (data.token) {
-            setFormValue({email: '', password: ''});
-            navigate('/', {replace: true});
+            setFormValue({ email: '', password: '' });
+            props.handleLogin();
+            navigate('/', { replace: true });
             console.log('был найден data.jwt');
           }
         })
@@ -43,7 +42,6 @@ function Login() {
     }
 
   }
-
 
   return (
     <div className="login">
