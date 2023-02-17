@@ -221,6 +221,8 @@ function App() {
                 element={
                   <Login
                     handleLogin={handleLogin}
+                    setUserData={setUserData}
+                    email={emailOnly}
                   />
                 } />
             </Routes>

@@ -35,6 +35,7 @@ function Login(props) {
             setFormValue({ email: '', password: '' });
             props.handleLogin();
             navigate('/', { replace: true });
+            // props.setUserData(props.email);
             console.log('был найден data.jwt');
           }
         })
