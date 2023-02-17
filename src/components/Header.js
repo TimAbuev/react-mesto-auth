@@ -2,14 +2,16 @@ import logo from '../images/Mesto.svg';
 import { Link } from 'react-router-dom';
 
 function Header(props) {
+  //console.log(props.data);
+  // let email = props.data;
+  // console.log(email);
   return (
     <header className="header">
       <img className="header__logo" src={logo} alt="логотип" />
-      {/* <Link to="/sign-up" className="header__link">Регистрация</Link>
-      <Link to="/sign-in" className="header__link">Войти</Link> */}
-
-      <Link to={props.linkTo} className="header__link">{props.linkName}</Link>
-      
+      <div className='header__container'>
+        <p className='header__email'>{props.email}</p>
+        <Link to={props.linkTo} className="header__link">{props.linkName}</Link>
+      </div>
     </header>
   );
 }

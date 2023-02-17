@@ -17,7 +17,6 @@ import AddPlacePopup from './AddPlacePopup';
 import InfoTooltip from './InfoTooltip';
 import * as mestoAuth from '../utils/mestoAuth';
 
-
 function App() {
   const [isEditProfilePopupOpen, setEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setPlacePopupOpen] = React.useState(false);
@@ -28,7 +27,13 @@ function App() {
   const [currentUser, setCurrentUser] = React.useState({});
   const [cards, setCards] = React.useState([]);
   const [loggedIn, setLoggedIn] = React.useState(false);
+  const [userData, setUserData] = React.useState({});
   const navigate = useNavigate();
+  const emailOnly = userData.email;
+
+  React.useEffect(() => {
+    checkToken();
+  }, []);
 
   React.useEffect(() => {
     api.getCards()
@@ -51,18 +56,21 @@ function App() {
 
   }, []);
 
-  React.useEffect(() => {
-    checkToken();
-  }, []);
-
   const checkToken = () => {
     if (localStorage.getItem('jwt')) {
       const jwt = localStorage.getItem('jwt');
       if (jwt) {
         mestoAuth.getContent(jwt).then((res) => {
-          if (res) { 
+          if (res) {
+            // console.log(res.data + "   1111111111");
+            const data = {
+              id: res.data._id,
+              email: res.data.email
+            }
+            // console.log(data);
             setLoggedIn(true);
-            navigate('/', {replace: true});
+            setUserData(data);
+            navigate('/', { replace: true });
           }
         })
       }
@@ -179,6 +187,7 @@ function App() {
                 <Header
                   linkName="Выйти"
                   linkTo="/sign-in"
+                  email={emailOnly}
                 />
               } />
 
