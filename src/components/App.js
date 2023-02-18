@@ -227,8 +227,6 @@ function App() {
                 element={
                   <Login
                     handleLogin={handleLogin}
-                    setUserData={setUserData}
-                    email={emailOnly}
                     handleUnLucky={handleUnLuckyInfoTooltip}
                   />
                 } />
