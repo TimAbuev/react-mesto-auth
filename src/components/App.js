@@ -22,7 +22,8 @@ function App() {
   const [isAddPlacePopupOpen, setPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setAvatarPopupOpen] = React.useState(false);
   const [isPopupImageOpen, setPopupImageOpen] = React.useState(false);
-  const [isInfoTooltipOpen, setInfoTooltipOpen] = React.useState(false);
+  const [isLuckyInfoTooltipOpen, setLuckyInfoTooltipOpen] = React.useState(false);
+  const [isUnluckyInfoTooltipOpen, setUnluckyInfoTooltipOpen] = React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState({});
   const [currentUser, setCurrentUser] = React.useState({});
   const [cards, setCards] = React.useState([]);
@@ -89,8 +90,11 @@ function App() {
   function handlePopupImgClick() {
     setPopupImageOpen(!isPopupImageOpen);
   }
-  function handleInfoTooltipClick() {
-    setInfoTooltipOpen(!isInfoTooltipOpen);
+  function handleLuckyInfoTooltip() {
+    setLuckyInfoTooltipOpen(!isLuckyInfoTooltipOpen);
+  }
+  function handleUnLuckyInfoTooltip() {
+    setUnluckyInfoTooltipOpen(!isUnluckyInfoTooltipOpen);
   }
 
   function handleLogin() {
@@ -102,7 +106,8 @@ function App() {
     isAddPlacePopupOpen && handleAddPlaceClick();
     isEditAvatarPopupOpen && handleEditAvatarClick();
     isPopupImageOpen && handlePopupImgClick();
-    isInfoTooltipOpen && handleInfoTooltipClick();
+    isLuckyInfoTooltipOpen && handleLuckyInfoTooltip();
+    isUnluckyInfoTooltipOpen && handleUnLuckyInfoTooltip();
   }
 
   function handleUpdateUser(data) {
@@ -214,7 +219,8 @@ function App() {
               <Route path='/sign-up'
                 element={
                   <Register
-                    handleLucky={handleInfoTooltipClick}
+                    handleLucky={handleLuckyInfoTooltip}
+                    handleUnLucky={handleUnLuckyInfoTooltip}
                   />
                 } />
               <Route path='/sign-in'
@@ -223,6 +229,7 @@ function App() {
                     handleLogin={handleLogin}
                     setUserData={setUserData}
                     email={emailOnly}
+                    handleUnLucky={handleUnLuckyInfoTooltip}
                   />
                 } />
             </Routes>
@@ -234,9 +241,9 @@ function App() {
               selectedCard={selectedCard} />
             {/* <PopupWithForm name="are-you-sure" headerName="Вы уверены?" btnName="Да" /> */}
             <EditAvatarPopup onUpdateAvatar={handleUpdateAvatar} isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} />
-            <InfoTooltip text="Вы успешно зарегистрировались!" isOpen={isInfoTooltipOpen} onClose={closeAllPopups}
+            <InfoTooltip text="Вы успешно зарегистрировались!" isOpen={isLuckyInfoTooltipOpen} onClose={closeAllPopups}
               success="_lucky" />
-            <InfoTooltip text="Что-то пошло не так! Попробуйте ещё раз." isOpen={false} onClose={closeAllPopups}
+            <InfoTooltip text="Что-то пошло не так! Попробуйте ещё раз." isOpen={isUnluckyInfoTooltipOpen} onClose={closeAllPopups}
               success="_unlucky" />
           </div>
         </div>

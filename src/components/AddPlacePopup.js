@@ -28,9 +28,9 @@ function AddPlacePopup(props) {
         required id="inputPlace-name" />
       <span className="error inputPlace-name-error"></span>
 
-      <input value={image} onChange={handleChangeImage} type="url" class="popup__input popup__input_type_card-src" name="link" placeholder="Ссылка на картинку"
+      <input value={image} onChange={handleChangeImage} type="url" className="popup__input popup__input_type_card-src" name="link" placeholder="Ссылка на картинку"
         required id="input-link" />
-      <span class="error input-link-error"></span>
+      <span className="error input-link-error"></span>
     </PopupWithForm>
   )
 

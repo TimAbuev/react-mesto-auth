@@ -16,7 +16,7 @@ export const register = (password, email) => {
       return Promise.reject({ message: "Ошибка на стороне сервера", res })
     })
     .then((res) => {
-      return res;
+      return res
     })
     .catch((err) => console.log(err));
 };
@@ -30,22 +30,7 @@ export const authorize = (password, email) => {
     },
     body: JSON.stringify({ password, email }),
   })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject({ message: "Ошибка на стороне сервера", res })
-    })
-    .then((data) => {
-      if (data.token) {
-        localStorage.setItem('jwt', data.token);
-        console.log('записали jwt в local storage');
-        return data;
-      } else {
-        return;
-      }
-    })
-    .catch((err) => console.log(err));
+    .then((response) => response.json())
 };
 
 export const getContent = (token) => {
@@ -57,13 +42,13 @@ export const getContent = (token) => {
       'Authorization': `Bearer ${token}`,
     }
   })
-  .then((res) => {
-    if (res.ok) {
-      return res.json();
-    }
-    return Promise.reject({ message: "Ошибка на стороне сервера", res })
-  })
-  .then(data => data)
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject({ message: "Ошибка на стороне сервера", res })
+    })
+    .then(data => data)
 
 }
 

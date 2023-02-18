@@ -4,31 +4,6 @@ import '../components/styles/Register.css';
 import * as mestoAuth from '../utils/mestoAuth.js'
 
 function Register(props) {
-  // const [formValue, setFormValue] = React.useState({
-  //   email: '',
-  //   password: '',
-  // });
-  // const navigate = useNavigate();
-  // const handleChange = (e) => {
-  //   const { name, value } = e.target;
-  //   //console.log(e.target.value);
-  //   setFormValue({
-  //     ...formValue,
-  //     [name]: value
-  //   })
-  // }
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   const { password, email } = formValue;
-  //   mestoAuth.register(password, email).then((res) => {
-  //     if (res.statusCode !== 400) {
-  //       navigate('/sign-in', { replace: true });
-  //     } else {
-  //       console.log("400 - некорректно заполнено одно из полей");
-  //     }
-  //   })
-  // }
-
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
 
@@ -42,11 +17,15 @@ function Register(props) {
 
   function handleSubmit(e) {
     e.preventDefault();
-
     mestoAuth.register(password, email)
-      .then(() => {
-        props.handleLucky();
-        navigate('/sign-in', { replace: true });
+      .then((res) => {
+        if (res) {
+          props.handleLucky();
+          navigate('/sign-in', { replace: true });
+        }
+        else {
+          props.handleUnLucky();
+        }
       })
   }
 

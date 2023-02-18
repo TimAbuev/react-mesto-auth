@@ -4,6 +4,7 @@ import '../components/styles/Login.css'
 import { useNavigate } from "react-router-dom";
 
 function Login(props) {
+  const navigate = useNavigate();
   const [formValue, setFormValue] = React.useState({
     email: '',
     password: ''
@@ -17,30 +18,25 @@ function Login(props) {
     });
   }
 
-  const navigate = useNavigate();
-
   function handleSubmit(e) {
     e.preventDefault();
 
-    if (!formValue.email || !formValue.password) {
-      console.log('было нажатие на сабмит');
-      return;
-    }
-    else {
-      console.log('нажатие + else');
-
-      mestoAuth.authorize(formValue.password, formValue.email)
-        .then((data) => {
-          if (data.token) {
-            setFormValue({ email: '', password: '' });
-            props.handleLogin();
-            navigate('/', { replace: true });
-            // props.setUserData(props.email);
-            console.log('был найден data.jwt');
-          }
-        })
-        .catch(err => console.log(err));
-    }
+    mestoAuth.authorize(formValue.password, formValue.email)
+      .then((data) => {
+        if (data.token) {
+          localStorage.setItem('jwt', data.token);
+          setFormValue({ email: '', password: '' });
+          props.handleLogin();
+          navigate('/', { replace: true });
+          //props.setUserData(props.email);
+          console.log('нажатие c заполненными полями');
+        }
+        else {
+          console.log('неверно завполненные поля');
+          props.handleUnLucky();
+        }
+      })
+      .catch(err => console.log(err));
 
   }
 
@@ -49,11 +45,11 @@ function Login(props) {
       <form onSubmit={handleSubmit}>
         <h2 className="login__header">Вход</h2>
         <input name="email" className="login__input" type="text" minLength="2" maxLength="40" placeholder="Email"
-          onChange={handleChange} value={formValue.email} />
+          onChange={handleChange} value={formValue.email} required />
         {/* <span className="error input-name-error"></span> */}
 
         <input name="password" className="login__input" type="password" placeholder="Пароль"
-          onChange={handleChange} value={formValue.password} />
+          onChange={handleChange} value={formValue.password} required />
         {/* <span class="error input-link-error"></span> */}
 
         <button className="login__button" type="submit">Войти</button>
