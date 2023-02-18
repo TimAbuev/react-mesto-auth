@@ -2,12 +2,11 @@ import logo from '../images/Mesto.svg';
 import { Link } from 'react-router-dom';
 
 function Header(props) {
-  //console.log(props.data);
-  // let email = props.data;
-  // console.log(email);
+  //console.log(props.userData.id);
 
   function signOut() {
     localStorage.removeItem('jwt');
+    props.handleLogin();
   }
 
   return (

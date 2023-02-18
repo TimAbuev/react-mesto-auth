@@ -62,17 +62,13 @@ function App() {
       const jwt = localStorage.getItem('jwt');
       if (jwt) {
         mestoAuth.getContent(jwt).then((res) => {
-          if (res) {
-            // console.log(res.data + "   1111111111");
             const data = {
               id: res.data._id,
               email: res.data.email
             }
-            // console.log(data);
             setLoggedIn(true);
             setUserData(data);
             navigate('/', { replace: true });
-          }
         })
       }
     }
@@ -193,6 +189,8 @@ function App() {
                   linkName="Выйти"
                   linkTo="/sign-in"
                   email={emailOnly}
+                  handleLogin={handleLogin}
+                  userData={userData}
                 />
               } />
 
