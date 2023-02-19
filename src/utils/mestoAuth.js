@@ -1,3 +1,5 @@
+import {checkResponse} from '../utils/checkResponse'
+
 export const BASE_URL = "https://auth.nomoreparties.co";
 
 export const register = (password, email) => {
@@ -37,17 +39,8 @@ export const getContent = (token) => {
       'Authorization': `Bearer ${token}`,
     }
   })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject({ message: "Ошибка на стороне сервера", res })
-    })
+    .then(checkResponse)
     .then(data => data)
 
 }
-
-
-
-
 
