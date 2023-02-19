@@ -114,11 +114,11 @@ function App() {
           handleLuckyInfoTooltip();
           navigate('/sign-in', { replace: true });
         }
-        else {
-          handleUnLuckyInfoTooltip();
-        }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        handleUnLuckyInfoTooltip();
+        console.log(err);
+      })
   }
 
   function handleLogInSubmit(password, email) {
