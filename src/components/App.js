@@ -70,6 +70,7 @@ function App() {
             setUserData(data);
             navigate('/', { replace: true });
         })
+        .catch((err) => console.log(err));
       }
     }
   }

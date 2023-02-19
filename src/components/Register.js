@@ -27,6 +27,7 @@ function Register(props) {
           props.handleUnLucky();
         }
       })
+      .catch((err) => console.log(err));
   }
 
   return (
