@@ -29,6 +29,9 @@ function App() {
   const [cards, setCards] = React.useState([]);
   const [loggedIn, setLoggedIn] = React.useState(false);
   const [userData, setUserData] = React.useState({});
+  const [imgName, setImgName] = React.useState('');
+  const [imageUrl, setImageUrl] = React.useState('');
+
   const navigate = useNavigate();
   const emailOnly = userData.email;
 
@@ -152,6 +155,8 @@ function App() {
       .then(function (res) {
         setCards([res, ...cards]);
         closeAllPopups();
+        setImgName('');
+        setImageUrl('');
       })
       .catch(function (err) {
         console.log('ошибка', err);
@@ -258,7 +263,8 @@ function App() {
 
           <Footer />
           <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
-          <AddPlacePopup onAddPlace={handleAddPlaceSubmit} isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} />
+          <AddPlacePopup onAddPlace={handleAddPlaceSubmit} isOpen={isAddPlacePopupOpen} onClose={closeAllPopups}
+            imgName={imgName} imageUrl={imageUrl} setImgName={setImgName} setImageUrl={setImageUrl} />
           <ImagePopup close={closeAllPopups} isOpen={isPopupImageOpen}
             selectedCard={selectedCard} />
           {/* <PopupWithForm name="are-you-sure" headerName="Вы уверены?" btnName="Да" /> */}
