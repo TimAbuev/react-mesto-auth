@@ -129,11 +129,11 @@ function App() {
           handleLogin();
           navigate('/', { replace: true });
         }
-        else {
-          handleUnLuckyInfoTooltip();
-        }
       })
-      .catch(err => console.log(err));
+      .catch((err) => {
+        handleUnLuckyInfoTooltip();
+        console.log(err);
+      })
   }
 
   function handleUpdateUser(data) {

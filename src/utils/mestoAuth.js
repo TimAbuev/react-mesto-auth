@@ -23,7 +23,7 @@ export const authorize = (password, email) => {
     },
     body: JSON.stringify({ password, email }),
   })
-    .then((response) => response.json())
+    .then(checkResponse)
 };
 
 export const getContent = (token) => {
@@ -36,7 +36,5 @@ export const getContent = (token) => {
     }
   })
     .then(checkResponse)
-    .then(data => data)
-
 }
 
