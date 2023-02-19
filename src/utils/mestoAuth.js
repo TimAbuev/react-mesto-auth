@@ -13,12 +13,7 @@ export const register = (password, email) => {
       if (res.ok) {
         return res.json();
       }
-      return Promise.reject({ message: "Ошибка на стороне сервера", res })
     })
-    .then((res) => {
-      return res
-    })
-    
 };
 
 export const authorize = (password, email) => {

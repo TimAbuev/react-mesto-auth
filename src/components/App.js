@@ -62,15 +62,15 @@ function App() {
       const jwt = localStorage.getItem('jwt');
       if (jwt) {
         mestoAuth.getContent(jwt).then((res) => {
-            const data = {
-              id: res.data._id,
-              email: res.data.email
-            }
-            setLoggedIn(true);
-            setUserData(data);
-            navigate('/', { replace: true });
+          const data = {
+            id: res.data._id,
+            email: res.data.email
+          }
+          setLoggedIn(true);
+          setUserData(data);
+          navigate('/', { replace: true });
         })
-        .catch((err) => console.log(err));
+          .catch((err) => console.log(err));
       }
     }
   }
@@ -107,19 +107,33 @@ function App() {
     isUnluckyInfoTooltipOpen && handleUnLuckyInfoTooltip();
   }
 
+  function handleRegisterSubmit(password, email) {
+    mestoAuth.register(password, email)
+      .then((res) => {
+        if (res) {
+          handleLuckyInfoTooltip();
+          navigate('/sign-in', { replace: true });
+        }
+        else {
+          handleUnLuckyInfoTooltip();
+        }
+      })
+      .catch((err) => console.log(err));
+  }
+
   function handleLogInSubmit(password, email) {
     mestoAuth.authorize(password, email)
-    .then((data) => {
-      if (data.token) {
-        localStorage.setItem('jwt', data.token);    
-        handleLogin();
-        navigate('/', { replace: true });
-      }
-      else {
-        handleUnLuckyInfoTooltip();
-      }
-    })
-    .catch(err => console.log(err));
+      .then((data) => {
+        if (data.token) {
+          localStorage.setItem('jwt', data.token);
+          handleLogin();
+          navigate('/', { replace: true });
+        }
+        else {
+          handleUnLuckyInfoTooltip();
+        }
+      })
+      .catch(err => console.log(err));
   }
 
   function handleUpdateUser(data) {
@@ -233,8 +247,7 @@ function App() {
               <Route path='/sign-up'
                 element={
                   <Register
-                    handleLucky={handleLuckyInfoTooltip}
-                    handleUnLucky={handleUnLuckyInfoTooltip}
+                    handleRegisterSubmit={handleRegisterSubmit}
                   />
                 } />
               <Route path='/sign-in'
