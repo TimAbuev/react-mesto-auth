@@ -197,7 +197,7 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="App">
-        <div className="root">
+        <div className="page">
           <Routes>
             <Route path="/sign-in"
               element={
@@ -226,50 +226,47 @@ function App() {
 
           </Routes>
 
-          <div className="page">
+          <Routes>
+            <Route
+              path='/'
+              element={
+                <ProtectedRoute
+                  loggedIn={loggedIn}
+                  onEditAvatar={handleEditAvatarClick}
+                  onEditProfile={handleEditProfileClick}
+                  onAddPlace={handleAddPlaceClick}
+                  onCardClick={handlePopupImgClick}
+                  setSelectedCard={setSelectedCard}
+                  onCardLike={handleCardLike}
+                  onCardDelete={handleCardDelete}
+                  cards={cards}
+                  component={Main} />
+              } />
+            <Route path='/sign-up'
+              element={
+                <Register
+                  handleRegisterSubmit={handleRegisterSubmit}
+                />
+              } />
+            <Route path='/sign-in'
+              element={
+                <Login
+                  handleLogInSubmit={handleLogInSubmit}
+                />
+              } />
+          </Routes>
 
-            <Routes>
-              <Route
-                path='/'
-                element={
-                  <ProtectedRoute
-                    loggedIn={loggedIn}
-                    onEditAvatar={handleEditAvatarClick}
-                    onEditProfile={handleEditProfileClick}
-                    onAddPlace={handleAddPlaceClick}
-                    onCardClick={handlePopupImgClick}
-                    setSelectedCard={setSelectedCard}
-                    onCardLike={handleCardLike}
-                    onCardDelete={handleCardDelete}
-                    cards={cards}
-                    component={Main} />
-                } />
-              <Route path='/sign-up'
-                element={
-                  <Register
-                    handleRegisterSubmit={handleRegisterSubmit}
-                  />
-                } />
-              <Route path='/sign-in'
-                element={
-                  <Login
-                    handleLogInSubmit={handleLogInSubmit}
-                  />
-                } />
-            </Routes>
-
-            <Footer />
-            <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
-            <AddPlacePopup onAddPlace={handleAddPlaceSubmit} isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} />
-            <ImagePopup close={closeAllPopups} isOpen={isPopupImageOpen}
-              selectedCard={selectedCard} />
-            {/* <PopupWithForm name="are-you-sure" headerName="Вы уверены?" btnName="Да" /> */}
-            <EditAvatarPopup onUpdateAvatar={handleUpdateAvatar} isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} />
-            <InfoTooltip text="Вы успешно зарегистрировались!" isOpen={isLuckyInfoTooltipOpen} onClose={closeAllPopups}
-              success="_lucky" />
-            <InfoTooltip text="Что-то пошло не так! Попробуйте ещё раз." isOpen={isUnluckyInfoTooltipOpen} onClose={closeAllPopups}
-              success="_unlucky" />
-          </div>
+          <Footer />
+          <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
+          <AddPlacePopup onAddPlace={handleAddPlaceSubmit} isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} />
+          <ImagePopup close={closeAllPopups} isOpen={isPopupImageOpen}
+            selectedCard={selectedCard} />
+          {/* <PopupWithForm name="are-you-sure" headerName="Вы уверены?" btnName="Да" /> */}
+          <EditAvatarPopup onUpdateAvatar={handleUpdateAvatar} isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} />
+          <InfoTooltip text="Вы успешно зарегистрировались!" isOpen={isLuckyInfoTooltipOpen} onClose={closeAllPopups}
+            success="_lucky" />
+          <InfoTooltip text="Что-то пошло не так! Попробуйте ещё раз." isOpen={isUnluckyInfoTooltipOpen} onClose={closeAllPopups}
+            success="_unlucky" />
         </div>
       </div>
     </CurrentUserContext.Provider>

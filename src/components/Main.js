@@ -7,7 +7,7 @@ function Main(props) {
 
   return (
 
-    <main className="page__main">
+    <main className="main">
       <section className="profile">
         <div className="profile__info">
           <div className="profile__avatar" onClick={props.onEditAvatar}
