@@ -107,6 +107,21 @@ function App() {
     isUnluckyInfoTooltipOpen && handleUnLuckyInfoTooltip();
   }
 
+  function handleLogInSubmit(password, email) {
+    mestoAuth.authorize(password, email)
+    .then((data) => {
+      if (data.token) {
+        localStorage.setItem('jwt', data.token);    
+        handleLogin();
+        navigate('/', { replace: true });
+      }
+      else {
+        handleUnLuckyInfoTooltip();
+      }
+    })
+    .catch(err => console.log(err));
+  }
+
   function handleUpdateUser(data) {
     api.editInfo(data)
       .then(function (res) {
@@ -225,8 +240,7 @@ function App() {
               <Route path='/sign-in'
                 element={
                   <Login
-                    handleLogin={handleLogin}
-                    handleUnLucky={handleUnLuckyInfoTooltip}
+                    handleLogInSubmit={handleLogInSubmit}
                   />
                 } />
             </Routes>

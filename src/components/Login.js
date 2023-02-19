@@ -1,10 +1,7 @@
 import React from "react";
-import * as mestoAuth from '../utils/mestoAuth'
 import '../components/styles/Login.css'
-import { useNavigate } from "react-router-dom";
 
 function Login(props) {
-  const navigate = useNavigate();
   const [formValue, setFormValue] = React.useState({
     email: '',
     password: ''
@@ -20,21 +17,8 @@ function Login(props) {
 
   function handleSubmit(e) {
     e.preventDefault();
-
-    mestoAuth.authorize(formValue.password, formValue.email)
-      .then((data) => {
-        if (data.token) {
-          localStorage.setItem('jwt', data.token);
-          setFormValue({ email: '', password: '' });
-          props.handleLogin();
-          navigate('/', { replace: true });
-        }
-        else {
-          props.handleUnLucky();
-        }
-      })
-      .catch(err => console.log(err));
-
+    setFormValue({ email: '', password: '' });
+    props.handleLogInSubmit(formValue.password, formValue.email);
   }
 
   return (
